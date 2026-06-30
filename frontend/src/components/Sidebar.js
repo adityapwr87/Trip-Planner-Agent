@@ -1,11 +1,21 @@
-import { Clock, Compass, Plane, X, Scale } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Clock, Compass, Plane, X, Scale, LogOut } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 import "./Sidebar.css";
 
 function Sidebar({
   open,
   onClose,
 }) {
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <>
       <aside className={`sidebar ${open ? "sidebar-open" : ""}`}>
@@ -31,7 +41,12 @@ function Sidebar({
           </button>
         </div>
 
-        <div className="sidebar-footer">Agentic trip planning workspace</div>
+        <div className="sidebar-footer">
+          <button className="sidebar-nav-button" onClick={handleLogout} style={{ width: '100%', background: 'transparent', border: 'none', textAlign: 'left', color: 'inherit', cursor: 'pointer' }}>
+            <LogOut size={18} />
+            Logout
+          </button>
+        </div>
       </aside>
       <div className="mobile-backdrop" onClick={onClose} />
     </>
