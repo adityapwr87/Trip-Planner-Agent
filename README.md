@@ -1,22 +1,22 @@
-# Agentic Trip Planner 🌍✈️
+# Agentic Trip Planner 
 
 Welcome to the **Agentic Trip Planner**, an intelligent, interactive application that helps you plan, explore, and compare travel destinations. Leveraging the power of LangGraph agents on the backend, this platform provides curated itineraries, activity recommendations, accommodation suggestions, and more!
 
-## 🚀 Features
+##  Features
 - **Conversational Trip Planning**: Chat with an AI assistant to tailor a trip exactly to your preferences.
 - **Agentic Workflows**: Powered by specialized LangGraph agents (Activities, Accommodations, Itinerary, Maps, Weather, Email, etc.) acting harmoniously under a Supervisor agent.
 - **Destination Comparison**: Side-by-side breakdown of locations to help you decide your next adventure.
 - **Detailed Itineraries**: Get day-by-day breakdowns with activities, travel logistics, and estimated costs.
 - **Modern UI**: A responsive, beautifully designed frontend interface.
 
-## 🛠️ Tech Stack
+##  Tech Stack
 - **Frontend**: React.js, React Router, Axios, Lucide React
 - **Backend**: Python, FastAPI, LangGraph, MongoDB / SQLite
 - **AI Integration**: LangChain, LLMs (for intelligent agent-based planning)
 
 ---
 
-## ⚙️ Prerequisites
+##  Prerequisites
 Ensure you have the following installed on your local machine:
 - **Node.js** (v16 or higher) and npm
 - **Python** (v3.9 or higher)
@@ -80,9 +80,3 @@ Once both the backend and frontend are running:
 1. Open your browser to `http://localhost:3000`.
 2. Sign up or log in to your account.
 3. Start chatting with the trip planner agent or explore destinations using the dashboard.
-
-## 🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page if you want to contribute.
-
-## 📝 License
-This project is open-source and available under the MIT License.
