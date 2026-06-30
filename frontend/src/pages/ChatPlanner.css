@@ -1,0 +1,134 @@
+.chat-planner {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 48px);
+  min-height: 680px;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.chat-header h1 {
+  margin: 0 0 6px;
+  font-size: 2rem;
+}
+
+.chat-header p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.chat-window {
+  flex: 1;
+  overflow-y: auto;
+  background: #151820;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.chat-message {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.chat-message.human {
+  flex-direction: row-reverse;
+}
+
+.chat-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: #252a38;
+  color: var(--text-primary);
+  flex: 0 0 auto;
+}
+
+.chat-bubble {
+  max-width: min(860px, 85%);
+  background: #1d2230;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px 16px;
+  line-height: 1.55;
+}
+
+.chat-message.human .chat-bubble {
+  background: #2b3150;
+}
+
+.chat-bubble p:first-child,
+.chat-bubble h1:first-child,
+.chat-bubble h2:first-child,
+.chat-bubble h3:first-child {
+  margin-top: 0;
+}
+
+.chat-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.chat-bubble h1,
+.chat-bubble h2,
+.chat-bubble h3 {
+  letter-spacing: 0;
+}
+
+.chat-bubble.loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.chat-input-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.chat-input-row input {
+  flex: 1;
+}
+
+.chat-input-row button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 720px) {
+  .chat-planner {
+    height: auto;
+    min-height: 0;
+  }
+
+  .chat-header,
+  .chat-input-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chat-bubble {
+    max-width: 100%;
+  }
+}

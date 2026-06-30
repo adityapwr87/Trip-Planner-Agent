@@ -1,0 +1,142 @@
+/* LandingPage.css */
+.landing-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f4f7fb 0%, #eaf2ff 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.landing-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 26px;
+  font-weight: 800;
+  color: #175cd3;
+}
+
+.landing-auth-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.btn-login, .btn-signup, .btn-cta {
+  font-family: inherit;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-login {
+  background: transparent;
+  color: #175cd3;
+  border: 1px solid #175cd3;
+  padding: 10px 24px;
+}
+
+.btn-login:hover {
+  background: #eaf2ff;
+}
+
+.btn-signup {
+  background: #175cd3;
+  color: #fff;
+  border: 1px solid #175cd3;
+  padding: 10px 24px;
+}
+
+.btn-signup:hover {
+  background: #124eb8;
+}
+
+.landing-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.landing-hero {
+  max-width: 800px;
+  margin-bottom: 80px;
+}
+
+.landing-hero h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #172033;
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+
+.landing-hero p {
+  font-size: 1.25rem;
+  color: #5c6b7d;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.btn-cta {
+  background: #175cd3;
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  font-size: 1.1rem;
+  box-shadow: 0 8px 24px rgba(23, 92, 211, 0.3);
+}
+
+.btn-cta:hover {
+  background: #124eb8;
+  transform: translateY(-2px);
+}
+
+.landing-features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  max-width: 1200px;
+}
+
+.feature-card {
+  flex: 1;
+  min-width: 300px;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.feature-card svg {
+  color: #175cd3;
+  margin-bottom: 24px;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  color: #172033;
+  margin-bottom: 16px;
+}
+
+.feature-card p {
+  color: #5c6b7d;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}

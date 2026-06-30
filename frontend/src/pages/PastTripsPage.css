@@ -1,0 +1,127 @@
+.past-trips-page {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.past-trips-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.past-trips-header h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.past-trips-header p {
+  margin: 6px 0 0;
+  color: #5c6b7d;
+}
+
+.past-trip-new,
+.past-trips-empty a {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: #175cd3;
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.past-trips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.past-trip-card {
+  display: flex;
+  gap: 12px;
+  min-height: 112px;
+  padding: 16px;
+  border: 1px solid #dce3eb;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #172033;
+  text-decoration: none;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.07);
+}
+
+.past-trip-card:hover {
+  border-color: #175cd3;
+  transform: translateY(-1px);
+}
+
+.past-trip-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #eaf2ff;
+  color: #175cd3;
+}
+
+.past-trip-card h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.past-trip-card p {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 0;
+  color: #5c6b7d;
+  font-size: 14px;
+}
+
+.past-trips-empty {
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  border: 1px dashed #cfd8e3;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #5c6b7d;
+  text-align: center;
+}
+
+.past-trips-empty h3 {
+  margin: 0;
+  color: #172033;
+}
+
+.past-trips-empty p {
+  margin: 0 0 8px;
+}
+
+@media (max-width: 720px) {
+  .past-trips-page {
+    padding: 14px;
+  }
+
+  .past-trips-header {
+    flex-direction: column;
+  }
+
+  .past-trip-new {
+    width: 100%;
+  }
+}

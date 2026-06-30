@@ -1,0 +1,219 @@
+.compare-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  animation: fadeIn 0.4s ease-out;
+  flex: 1;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.compare-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.compare-icon {
+  color: #3b82f6;
+  margin-bottom: 0.5rem;
+}
+
+.compare-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #1e293b;
+}
+
+.compare-header p {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+.compare-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  flex: 100%;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.compare-submit {
+  width: 100%;
+  padding: 1rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.compare-submit:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.compare-submit:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+.error-message {
+  color: #ef4444;
+  background: #fee2e2;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* Results */
+.compare-result {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: slideUp 0.5s ease-out;
+}
+
+.winner-card {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.3);
+}
+
+.trophy-icon {
+  margin-bottom: 1rem;
+}
+
+.winner-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.winner-card p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.comparison-point-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-point-card h4 {
+  font-size: 1.25rem;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.point-split {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.dest-box {
+  flex: 1;
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.dest-box h5 {
+  font-size: 1rem;
+  color: #3b82f6;
+  margin-bottom: 0.5rem;
+}
+
+.dest-box p {
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.point-verdict {
+  background: #ecfdf5;
+  color: #065f46;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .point-split {
+    flex-direction: column;
+  }
+}
