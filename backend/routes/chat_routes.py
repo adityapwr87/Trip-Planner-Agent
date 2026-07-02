@@ -4,7 +4,9 @@ from models.user import UserInDB
 
 from controllers.chat_controller import (
     ChatRequest,
+    ResumeRequest,
     chat,
+    resume_chat,
     get_chat_history,
     health_check,
     list_sessions,
@@ -28,3 +30,7 @@ async def get_chat_history_route(session_id: str, user: UserInDB = Depends(get_c
 async def chat_endpoint(request: ChatRequest, user: UserInDB = Depends(get_current_user)):
     request.user_id = user.id
     return chat(request, user.email)
+
+@router.post("/chat/resume", response_model=None)
+async def resume_chat_endpoint(request: ResumeRequest, user: UserInDB = Depends(get_current_user)):
+    return resume_chat(request)

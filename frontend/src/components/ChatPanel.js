@@ -9,6 +9,8 @@ function ChatPanel({
   setInput,
   sendMessage,
   chatEndRef,
+  pendingApproval,
+  handleApproval,
 }) {
   return (
     <section className="chat-card">
@@ -17,7 +19,10 @@ function ChatPanel({
         {messages.map((message, index) => (
           <ChatMessage key={`${message.role}-${index}`} message={message} />
         ))}
-        {loading && <TypingMessage />}
+        {loading && !pendingApproval && <TypingMessage />}
+        {pendingApproval && (
+          <ApprovalPrompt handleApproval={handleApproval} />
+        )}
         <div ref={chatEndRef} />
       </div>
 
@@ -30,10 +35,10 @@ function ChatPanel({
         />
         <button
           type="submit"
-          disabled={loading || !input.trim()}
+          disabled={loading || !input.trim() || pendingApproval}
           aria-label="Send message"
         >
-          {loading ? <Loader2 className="spin" size={20} /> : <Send size={20} />}
+          {(loading && !pendingApproval) ? <Loader2 className="spin" size={20} /> : <Send size={20} />}
         </button>
       </form>
     </section>
@@ -88,3 +93,20 @@ function TypingMessage() {
 }
 
 export default ChatPanel;
+
+function ApprovalPrompt({ handleApproval }) {
+  return (
+    <div className="message-row message-assistant">
+      <div className="avatar">
+        <Bot size={17} />
+      </div>
+      <div className="message-bubble approval-prompt">
+        <p>The assistant would like to email you this itinerary. Do you approve?</p>
+        <div className="approval-buttons">
+          <button className="btn-approve" onClick={() => handleApproval(true)}>Yes, send email</button>
+          <button className="btn-decline" onClick={() => handleApproval(false)}>No, skip</button>
+        </div>
+      </div>
+    </div>
+  );
+}

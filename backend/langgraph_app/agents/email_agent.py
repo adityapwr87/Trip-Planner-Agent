@@ -11,6 +11,9 @@ def email_node(state: TripState) -> TripState:
     email_address = state.get("email")
     if not email_address:
         return {"assistant_response": "I'm sorry, I don't have your registered email address.", "email_sent": False}
+        
+    if not state.get("email_approved"):
+        return {"email_sent": False}
 
     itinerary_text = state.get("itinerary_message") or state.get("itinerary") or "No itinerary available."
     html_itinerary = markdown.markdown(itinerary_text)

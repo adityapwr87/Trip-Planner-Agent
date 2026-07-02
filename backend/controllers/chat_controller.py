@@ -12,6 +12,10 @@ class ChatRequest(BaseModel):
     session_id: str | None = None
     user_id: str | None = "default_user"
 
+class ResumeRequest(BaseModel):
+    session_id: str
+    approved: bool
+
 
 def health_check():
     return {"status": "ok", "message": "Trip Planner backend is running"}
@@ -71,10 +75,34 @@ def chat(request: ChatRequest, user_email: str = None):
     title = f"{destination} Trip" if destination else "New Trip"
     save_session_metadata(session_id, title, user_id)
 
+    # Check if interrupted
+    current_graph_state = trip_graph.get_state(config)
+    requires_approval = False
+    if current_graph_state and current_graph_state.next and "email_agent" in current_graph_state.next:
+        requires_approval = True
+
     return {
         "session_id": session_id,
         "response": state.get("assistant_response"),
         "state": _serialize_state(state),
+        "requires_approval": requires_approval,
+    }
+
+
+def resume_chat(request: ResumeRequest):
+    config = {"configurable": {"thread_id": request.session_id}}
+    
+    # Update the state with approval decision
+    trip_graph.update_state(config, {"email_approved": request.approved})
+    
+    # Resume the graph
+    state = trip_graph.invoke(None, config=config)
+    
+    return {
+        "session_id": request.session_id,
+        "response": state.get("assistant_response") if state else "Resumed successfully.",
+        "state": _serialize_state(state) if state else {},
+        "requires_approval": False,
     }
 
 

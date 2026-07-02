@@ -6,6 +6,7 @@ import {
   generateDirectItinerary,
   getChatHistory,
   sendChatMessage,
+  resumeChat,
 } from "../api/client";
 import ChatPanel from "../components/ChatPanel";
 import DirectItineraryPage, {
@@ -16,35 +17,54 @@ import { createSessionId } from "../utils/session";
 function PlannerPage({ onSessionsChanged }) {
   const navigate = useNavigate();
   const { sessionId: routeSessionId } = useParams();
+  
+  // View mode
   const [mode, setMode] = useState("chat");
-  const [sessionId, setSessionId] = useState(
-    () => localStorage.getItem("trip_session_id") || createSessionId(),
-  );
+  
+  // Chat state
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [chatLoading, setChatLoading] = useState(false);
+  const [pendingApproval, setPendingApproval] = useState(false);
+  
+  // Form state
   const [formLoading, setFormLoading] = useState(false);
   const [itineraryForm, setItineraryForm] = useState(emptyItineraryForm);
   const [itineraryResult, setItineraryResult] = useState(null);
+  
   const chatEndRef = useRef(null);
+
+  // Helper to centrally manage session transitions
+  const switchSession = (newId) => {
+    localStorage.setItem("trip_session_id", newId);
+    navigate(`/plan/${newId}`, { replace: true });
+  };
 
   useEffect(() => {
     if (!routeSessionId) {
+      // If no ID in URL, redirect to last saved session or create new
+      const savedId = localStorage.getItem("trip_session_id");
+      switchSession(savedId || "new");
       return;
     }
 
     if (routeSessionId === "new") {
-      startNewChat();
+      // Setup a fresh session
+      const newId = createSessionId();
+      setMode("chat");
+      setMessages([]);
+      setInput("");
+      setItineraryForm(emptyItineraryForm);
+      setItineraryResult(null);
+      switchSession(newId);
       return;
     }
 
+    // Load an existing session
     loadSession(routeSessionId);
+    localStorage.setItem("trip_session_id", routeSessionId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routeSessionId]);
-
-  useEffect(() => {
-    localStorage.setItem("trip_session_id", sessionId);
-  }, [sessionId]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -52,8 +72,6 @@ function PlannerPage({ onSessionsChanged }) {
 
   async function loadSession(id) {
     setMode("chat");
-    setSessionId(id);
-
     try {
       const history = await getChatHistory(id);
       
@@ -91,19 +109,6 @@ function PlannerPage({ onSessionsChanged }) {
     }
   }
 
-  function startNewChat() {
-    const id = createSessionId();
-    setMode("chat");
-    setSessionId(id);
-    setMessages([]);
-    setInput("");
-    localStorage.setItem("trip_session_id", id);
-
-    if (routeSessionId !== "new") {
-      navigate("/plan/new", { replace: true });
-    }
-  }
-
   async function handleSendMessage(event) {
     event.preventDefault();
     const text = input.trim();
@@ -116,12 +121,15 @@ function PlannerPage({ onSessionsChanged }) {
     try {
       const data = await sendChatMessage({
         message: text,
-        sessionId,
+        sessionId: routeSessionId,
       });
 
-      if (data.session_id && data.session_id !== sessionId) {
-        setSessionId(data.session_id);
-        navigate(`/plan/${data.session_id}`, { replace: true });
+      if (data.session_id && data.session_id !== routeSessionId) {
+        switchSession(data.session_id);
+      }
+
+      if (data.requires_approval) {
+        setPendingApproval(true);
       }
 
       setMessages((current) => [
@@ -146,6 +154,35 @@ function PlannerPage({ onSessionsChanged }) {
     }
   }
 
+  async function handleApproval(approved) {
+    setPendingApproval(false);
+    setChatLoading(true);
+    try {
+      const data = await resumeChat({
+        sessionId: routeSessionId,
+        approved,
+      });
+      setMessages((current) => [
+        ...current,
+        {
+          role: "assistant",
+          content: data.response || (approved ? "Email sent!" : "Email cancelled."),
+        },
+      ]);
+      onSessionsChanged?.();
+    } catch {
+      setMessages((current) => [
+        ...current,
+        {
+          role: "assistant",
+          content: "Could not resume the chat.",
+        },
+      ]);
+    } finally {
+      setChatLoading(false);
+    }
+  }
+
   async function handleGenerateItinerary(event) {
     event.preventDefault();
     if (formLoading) return;
@@ -155,9 +192,8 @@ function PlannerPage({ onSessionsChanged }) {
 
     try {
       const data = await generateDirectItinerary(itineraryForm);
-      if (data.session_id) {
-        setSessionId(data.session_id);
-        navigate(`/plan/${data.session_id}`, { replace: true });
+      if (data.session_id && data.session_id !== routeSessionId) {
+        switchSession(data.session_id);
       }
       setItineraryResult(data);
       onSessionsChanged?.();
@@ -199,6 +235,8 @@ function PlannerPage({ onSessionsChanged }) {
           setInput={setInput}
           sendMessage={handleSendMessage}
           chatEndRef={chatEndRef}
+          pendingApproval={pendingApproval}
+          handleApproval={handleApproval}
         />
       ) : (
         <DirectItineraryPage

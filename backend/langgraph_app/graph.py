@@ -146,7 +146,8 @@ def build_trip_graph(memory_saver):
     )
 
     return graph.compile(
-        checkpointer=memory_saver
+        checkpointer=memory_saver,
+        interrupt_before=["email_agent"]
     )
 def _route_after_supervisor(
     state: TripState,

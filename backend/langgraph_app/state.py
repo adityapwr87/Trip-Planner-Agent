@@ -44,3 +44,4 @@ class TripState(TypedDict, total=False):
     email: str
     email_offered: bool
     email_sent: bool
+    email_approved: bool

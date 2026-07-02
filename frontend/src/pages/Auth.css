@@ -3,8 +3,33 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #eef2f6 0%, #dce3eb 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   padding: 20px;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 10px 16px;
+  border-radius: 99px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1);
 }
 
 .auth-card {

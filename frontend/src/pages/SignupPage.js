@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Plane } from 'lucide-react';
+import { Plane, ArrowLeft } from 'lucide-react';
 import './Auth.css';
 
 export default function SignupPage() {
@@ -26,6 +26,9 @@ export default function SignupPage() {
 
   return (
     <div className="auth-page">
+      <button className="back-button" onClick={() => navigate('/')}>
+        <ArrowLeft size={20} /> Back to Home
+      </button>
       <div className="auth-card">
         <div className="brand-mark">
           <Plane size={32} />

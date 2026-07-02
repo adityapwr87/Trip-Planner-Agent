@@ -50,6 +50,14 @@ export async function sendChatMessage({ message, sessionId }) {
   return data;
 }
 
+export async function resumeChat({ sessionId, approved }) {
+  const { data } = await api.post("/chat/resume", {
+    session_id: sessionId,
+    approved: approved,
+  });
+  return data;
+}
+
 export async function generateDirectItinerary(form) {
   const { data } = await api.post("/itinerary/generate", {
     ...form,

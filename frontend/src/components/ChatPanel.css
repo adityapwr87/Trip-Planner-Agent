@@ -111,6 +111,40 @@
   margin: 8px 0;
 }
 
+.approval-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.approval-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-approve, .btn-decline {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-approve {
+  background: #175cd3;
+  color: white;
+}
+
+.btn-decline {
+  background: #cbd5e1;
+  color: #334155;
+}
+
+.btn-approve:hover, .btn-decline:hover {
+  opacity: 0.9;
+}
+
 .composer {
   flex: 0 0 auto;
   display: flex;
